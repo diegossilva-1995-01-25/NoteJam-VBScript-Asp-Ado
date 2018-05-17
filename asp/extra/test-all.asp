@@ -1,0 +1,98 @@
+<%
+
+Response.buffer = True
+
+Dim Conn
+Dim Cmd
+
+verUsers
+'verPads
+'verNotes
+
+
+'Método padrão para conexão do banco
+Sub conectar
+
+	set Conn = Server.createObject("ADODB.Connection") 
+	Conn.open("DRIVER=SQLite3 ODBC Driver; Database=" & Server.mapPath("/writables/db/diego.silva.sqlite") & "; LongNames=0; Timeout=1000; NoTXN=0; SyncPragma=NORMAL; StepAPI=0;")
+	
+	Set Cmd = Server.createObject("ADODB.Command") 
+	Cmd.activeConnection = Conn
+
+End Sub
+
+
+'Método padrão para desconexão do banco
+Sub finalizar
+	
+	Conn.close
+	
+	Set Cmd = nothing
+	Set Conn = nothing
+	
+End Sub
+
+
+Sub verUsers
+	
+	conectar
+	
+	comandoSql = "SELECT id, email, password FROM users"
+	
+	Cmd.commandText = comandoSql
+	Set rs = Cmd.execute
+	
+	Do Until rs.EOF
+		Response.write(rs.Fields.Item(0).Value & "," & rs.Fields.Item(1).Value & "," & rs.Fields.Item(2).Value & "<br>")
+	Loop
+	
+	finalizar
+	
+	Response.write("<br><br>")
+	Response.flush()
+	
+End Sub
+
+
+Sub verPads
+	
+	conectar
+	
+	comandoSql = "SELECT id, name, user_id FROM pads"
+	
+	Cmd.commandText = comandoSql
+	Set rs = Cmd.execute
+	
+	Do Until rs.EOF
+		Response.write(rs.Fields.Item(0).Value & "," & rs.Fields.Item(1).Value & "," & rs.Fields.Item(2).Value & "<br>")
+	Loop
+	
+	finalizar
+	
+	Response.write("<br><br>")
+	Response.flush()
+	
+End Sub
+
+
+Sub verNotes
+	
+	conectar
+	
+	comandoSql = "SELECT id, name FROM notes"
+	
+	Cmd.commandText = comandoSql
+	Set rs = Cmd.execute
+	
+	Do Until rs.EOF
+		Response.write(rs.Fields.Item(0).Value & "," & rs.Fields.Item(1).Value & "<br>")
+	Loop
+	
+	finalizar
+	
+	Response.flush()
+	
+End Sub
+
+
+%>
