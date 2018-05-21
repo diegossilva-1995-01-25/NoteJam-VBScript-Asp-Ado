@@ -33,7 +33,7 @@ Response.charset = "UTF-8"
 		Dim email
 		email = Session("user")
 		Session.Timeout = TIMEOUT
-		secs = CInt((TIMEOUT * 60) + 1)
+		secs = CInt((TIMEOUT * 60) + 10)
 	
 		Dim mensagem
 		Dim aux

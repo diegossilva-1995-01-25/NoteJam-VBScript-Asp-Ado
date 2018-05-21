@@ -47,7 +47,7 @@ Response.charset = "UTF-8"
 		'id = Server.htmlEncode(Request.QueryString("id"))
 		email = Session("user")
 		Session.Timeout = TIMEOUT
-		secs = CInt((TIMEOUT * 60) + 1)
+		secs = CInt((TIMEOUT * 60) + 10)
 		'titulo = Server.htmlEncode(Request.QueryString("title"))
 		'texto = Server.htmlEncode(Request.QueryString("text"))
 		'valCombo = Server.htmlEncode(Request.QueryString("pad"))
@@ -124,7 +124,7 @@ Response.charset = "UTF-8"
         <label for="name">Name</label>
         <input type="text" id="name" name="name" value="<%=titulo%>" maxlength="100" required autofocus>
         <label for="text">Note</label>
-        <textarea id="text" name="text" ><%=corpo%></textarea>
+        <textarea id="text" name="text" required><%=corpo%></textarea>
         <label for="list">Select Pad</label>
         <select id="list" name="list">
           <option value="0" selected>--------</option>

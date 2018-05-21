@@ -83,9 +83,9 @@ Response.charset = "UTF-8"
     <%=mensagem%>
       <form class="offset-by-six sign-in" action="/diego.silva/notejam-vbs-asp-ado/asp/controller/login/update-password.asp">
         <label for="new-password">New password</label>
-        <input type="password" id="new-password" name="new-password" maxlength="128" required autofocus>
+        <input type="password" id="new-password" name="new-password" minlength="8" maxlength="128" required autofocus>
         <label for="confirm-new-password">Confirm new password</label>
-        <input type="password" id="confirm-new-password" name="confirm-new-password" maxlength="128" required>
+        <input type="password" id="confirm-new-password" name="confirm-new-password" minlength="8" maxlength="128" required>
         <input type="submit" value="Save">
       </form>
     </div>

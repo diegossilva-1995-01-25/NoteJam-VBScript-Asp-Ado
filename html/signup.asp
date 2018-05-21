@@ -75,9 +75,9 @@ Response.charset = "UTF-8"
         <label for="email">Email</label>
         <input type="email" id="email" name="email" maxlength="75" required autofocus>
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" maxlength="128" required>
+        <input type="password" id="password" name="password" minlength="8" maxlength="128" required>
         <label for="confirm-password">Confirm password</label>
-        <input type="password" id="confirm-password" name="confirm-password" maxlength="128" required>
+        <input type="password" id="confirm-password" name="confirm-password" minlength="8" maxlength="128" required>
         <input type="submit" value="Sign Up"> or <a href='signin.asp'>Sign in</a>
       </form>
     </div>

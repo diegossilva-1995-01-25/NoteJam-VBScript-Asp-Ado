@@ -40,7 +40,7 @@ Response.charset = "UTF-8"
 		
 		email = Session("user")
 		Session.Timeout = TIMEOUT
-		secs = CInt((TIMEOUT * 60) + 1)
+		secs = CInt((TIMEOUT * 60) + 10)
 	
 		If StrComp(TypeName(listaPads), "String") = 0 Then
 			lista = listaPads
@@ -112,7 +112,7 @@ Response.charset = "UTF-8"
         <label for="name" required>Name</label>
         <input type="text" id="name" name="name" maxlength="100" required autofocus>
         <label for="text">Note</label>
-        <textarea id="text" name="text" ></textarea>
+        <textarea id="text" name="text" required></textarea>
         <label for="list">Select Pad</label>
         <select id="list" name="list">
           <option value="0" selected>--------</option>

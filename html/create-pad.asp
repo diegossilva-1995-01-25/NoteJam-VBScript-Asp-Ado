@@ -48,7 +48,7 @@ Response.charset = "UTF-8"
 		
 		email = Session("user")
 		Session.Timeout = TIMEOUT
-		secs = CInt((TIMEOUT * 60) + 1)
+		secs = CInt((TIMEOUT * 60) + 10)
 		valorCampo = ""
 		acao = "/diego.silva/notejam-vbs-asp-ado/asp/controller/pads/add-a-pad.asp"
 		pad = "New pad"

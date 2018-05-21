@@ -55,7 +55,7 @@ Response.charset = "UTF-8"
 		
 		email = Session("user")
 		Session.Timeout = TIMEOUT
-		secs = CInt((TIMEOUT * 60) + 1)
+		secs = CInt((TIMEOUT * 60) + 10)
 		order = Request.QueryString("order")
 		
 		'O que aprendemos aqui? Vai encriptar cookies? Jogue o valor para variável e use a variável.

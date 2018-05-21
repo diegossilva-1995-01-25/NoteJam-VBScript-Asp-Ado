@@ -52,7 +52,7 @@ Response.charset = "UTF-8"
 		
 		email = Session("user")
 		Session.Timeout = TIMEOUT
-		secs = CInt((TIMEOUT * 60) + 1)
+		secs = CInt((TIMEOUT * 60) + 10)
 		pad = Server.htmlEncode(Request.QueryString("pad"))
 	
 		If StrComp(TypeName(listaPads), "String") = 0 Then

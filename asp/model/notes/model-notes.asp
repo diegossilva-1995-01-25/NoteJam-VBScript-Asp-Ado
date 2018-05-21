@@ -254,7 +254,7 @@
 		
 				'Para dentro da tag
 				ref = "href=""/diego.silva/notejam-vbs-asp-ado/html/view.asp?name=" & Server.urlEncode(nome) & "&pad=" & Server.urlEncode("" & padName) & """"
-				ref2 = "href=""/diego.silva/notejam-vbs-asp-ado/html/create-pad.asp?id=" & pad & "&name=" & Server.urlEncode("" & padName) & """"
+				ref2 = "href=""/diego.silva/notejam-vbs-asp-ado/html/create-pad.asp?id=" & Server.urlEncode("" & pad) & "&name=" & Server.urlEncode("" & padName) & """"
 		
 				'Cada linha da tabela
 				linhas(cont - 1) = "<tr> <td> <a " & ref & ">" & nome & "</a> </td> <td> <a " & ref2 & ">" & padName & "</a> </td> " & _

@@ -88,7 +88,7 @@ Response.charset = "UTF-8"
         <%=erroEml%>
         
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" maxlength="128" required>
+        <input type="password" id="password" name="password" minlength="8" maxlength="128" required>
         <%=erroPwd%>
         
         <input type="submit" value="Sign In"> or <a href="signup.asp">Sign up</a>
