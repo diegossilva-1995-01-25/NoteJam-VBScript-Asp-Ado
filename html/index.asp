@@ -20,7 +20,9 @@ Response.charset = "UTF-8"
 	
 	<%
 		Response.CacheControl = "no-store"
-
+		Dim TIMEOUT
+		Dim secs
+		TIMEOUT = 5 'minutos
 		If Session("user") = "" Then
 			Response.redirect("https://blogs.lojcomm.com.br/diego.silva/notejam-vbs-asp-ado/html/signin.asp")
 		End If
@@ -30,7 +32,7 @@ Response.charset = "UTF-8"
 	<!--#include virtual="/diego.silva/notejam-vbs-asp-ado/asp/controller/notes/show-notes.asp"-->
 	<!--#include virtual="/lib/crypto.asp"-->
 	<%
-
+		
 		Dim email
 		Dim lista
 		Dim notes
@@ -52,6 +54,8 @@ Response.charset = "UTF-8"
 		tablePt2 = "</tbody> </table>"
 		
 		email = Session("user")
+		Session.Timeout = TIMEOUT
+		secs = CInt((TIMEOUT * 60) + 1)
 		order = Request.QueryString("order")
 		
 		'O que aprendemos aqui? Vai encriptar cookies? Jogue o valor para variável e use a variável.
@@ -111,9 +115,9 @@ Response.charset = "UTF-8"
 	<meta name="description" content="Tela principal após o login">
 	<meta name="author" content="Diego S. Silva">
 	<link rel="icon" href="/diego.silva/assets/img/radioactive.ico">
-	<meta http-equiv="refresh" content="300;url=https://blogs.lojcomm.com.br/diego.silva/notejam-vbs-asp-ado/html/signin.asp"/>
 	<script src="/diego.silva/notejam-vbs-asp-ado/javascript/moment.js"></script>
 	<script src="/diego.silva/notejam-vbs-asp-ado/javascript/moment-with-locales.js"></script>
+	<meta http-equiv="refresh" content="<%=secs%>">
 
 	<!-- Mobile Specific Metas
   ================================================== -->
@@ -178,10 +182,14 @@ Response.charset = "UTF-8"
 	
 		var tabela = document.getElementById("tabela");
 		
-		for(var i = 1; i < tabela.rows.length; i++) {
+		if(!(tabela === null)) {
+		
+			for(var i = 1; i < tabela.rows.length; i++) {
 			
-			tabela.rows[i].cells[2].innerHTML = moment(String(tabela.rows[i].cells[2].innerHTML), "MM/DD/YYYY hh:mm:ss a").subtract(3, "hours").calendar();
+				tabela.rows[i].cells[2].innerHTML = moment(String(tabela.rows[i].cells[2].innerHTML), "MM/DD/YYYY hh:mm:ss a").subtract(3, "hours").calendar();
 			
+			}
+		
 		}
 		
 	}

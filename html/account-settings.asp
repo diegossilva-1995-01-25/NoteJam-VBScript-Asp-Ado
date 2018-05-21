@@ -20,7 +20,9 @@ Response.charset = "UTF-8"
 	<%
 
 		Response.CacheControl = "no-store"
-
+		Dim TIMEOUT
+		Dim secs
+		TIMEOUT = 5 'minutos
 		If Session("user") = "" Then
 			Response.redirect("https://blogs.lojcomm.com.br/diego.silva/notejam-vbs-asp-ado/html/signin.asp")
 		End If
@@ -30,6 +32,8 @@ Response.charset = "UTF-8"
 
 		Dim email
 		email = Session("user")
+		Session.Timeout = TIMEOUT
+		secs = CInt((TIMEOUT * 60) + 1)
 	
 		Dim mensagem
 		Dim aux
@@ -49,6 +53,7 @@ Response.charset = "UTF-8"
 	<meta name="description" content="Altera a senha">
 	<meta name="author" content="Diego S. Silva">
 	<link rel="icon" href="/diego.silva/assets/img/radioactive.ico">
+	<meta http-equiv="refresh" content="<%=secs%>">
 
 	<!-- Mobile Specific Metas
   ================================================== -->

@@ -19,7 +19,9 @@ Response.charset = "UTF-8"
 
 	<%
 		Response.CacheControl = "no-store"
-
+		Dim TIMEOUT
+		Dim secs
+		TIMEOUT = 120 'minutos
 		If Session("user") = "" Then
 			Response.redirect("https://blogs.lojcomm.com.br/diego.silva/notejam-vbs-asp-ado/html/signin.asp")
 		End If
@@ -44,6 +46,8 @@ Response.charset = "UTF-8"
 	
 		'id = Server.htmlEncode(Request.QueryString("id"))
 		email = Session("user")
+		Session.Timeout = TIMEOUT
+		secs = CInt((TIMEOUT * 60) + 1)
 		'titulo = Server.htmlEncode(Request.QueryString("title"))
 		'texto = Server.htmlEncode(Request.QueryString("text"))
 		'valCombo = Server.htmlEncode(Request.QueryString("pad"))
@@ -76,6 +80,7 @@ Response.charset = "UTF-8"
 	<meta name="description" content="Tela para edição de notas">
 	<meta name="author" content="Diego S. Silva">
 	<link rel="icon" href="/diego.silva/assets/img/radioactive.ico">
+	<meta http-equiv="refresh" content="<%=secs%>">
 	
 
 	<!-- Mobile Specific Metas
@@ -115,11 +120,11 @@ Response.charset = "UTF-8"
     </div>
     <div class="thirteen columns content-area">
     <%=mensagem%>
-      <form class="note" action="/diego.silva/notejam-vbs-asp-ado/asp/controller/notes/alter-a-note.asp">
+      <form class="note" action="/diego.silva/notejam-vbs-asp-ado/asp/controller/notes/alter-a-note.asp" method="POST">
         <label for="name">Name</label>
         <input type="text" id="name" name="name" value="<%=titulo%>" maxlength="100" required autofocus>
         <label for="text">Note</label>
-        <textarea id="text" name="text"><%=corpo%></textarea>
+        <textarea id="text" name="text" ><%=corpo%></textarea>
         <label for="list">Select Pad</label>
         <select id="list" name="list">
           <option value="0" selected>--------</option>

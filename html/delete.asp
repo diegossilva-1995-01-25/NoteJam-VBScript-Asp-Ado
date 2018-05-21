@@ -19,7 +19,9 @@ Response.charset = "UTF-8"
 	
 	<%
 		Response.CacheControl = "no-store"
-
+		Dim TIMEOUT
+		Dim secs
+		TIMEOUT = 5 'minutos
 		If Session("user") = "" Then
 			Response.redirect("https://blogs.lojcomm.com.br/diego.silva/notejam-vbs-asp-ado/html/signin.asp")
 		End If
@@ -40,6 +42,8 @@ Response.charset = "UTF-8"
 	
 		id = Request.QueryString("id")
 		email = Session("user")
+		Session.Timeout = TIMEOUT
+		secs = CInt((TIMEOUT * 60) + 1)
 		titulo = Request.QueryString("title")
 	
 		If StrComp(TypeName(listaPads), "String") = 0 Then
@@ -61,7 +65,7 @@ Response.charset = "UTF-8"
 	<meta name="description" content="Tela onde ocorre a exclusão das notas">
 	<meta name="author" content="Diego S. Silva">
 	<link rel="icon" href="/diego.silva/assets/img/radioactive.ico">
-	<meta http-equiv="refresh" content="300;url=https://blogs.lojcomm.com.br/diego.silva/notejam-vbs-asp-ado/html/signin.asp"/>
+	<meta http-equiv="refresh" content="<%=secs%>">
 
 	<!-- Mobile Specific Metas
   ================================================== -->

@@ -21,7 +21,9 @@ Response.charset = "UTF-8"
 	
 	<%
 		Response.CacheControl = "no-store"
-
+		Dim TIMEOUT
+		Dim secs
+		TIMEOUT = 120 'minutos
 		If Session("user") = "" Then
 			Response.redirect("https://blogs.lojcomm.com.br/diego.silva/notejam-vbs-asp-ado/html/signin.asp")
 		End If
@@ -45,6 +47,8 @@ Response.charset = "UTF-8"
 		KEYTOCRYPT = "SOLO_UNA_CHIAVE_PER_CODIFICARE_IL_CORRIERI_ELECTRONICO"
 		
 		email = Session("user")
+		Session.Timeout = TIMEOUT
+		secs = CInt((TIMEOUT * 60) + 1)
 		valorCampo = ""
 		acao = "/diego.silva/notejam-vbs-asp-ado/asp/controller/pads/add-a-pad.asp"
 		pad = "New pad"
@@ -84,7 +88,7 @@ Response.charset = "UTF-8"
 	<meta name="description" content="Cria a pasta para classificacao das notas">
 	<meta name="author" content="Diego S. Silva">
 	<link rel="icon" href="/diego.silva/assets/img/radioactive.ico">
-	<meta http-equiv="refresh" content="300;url=https://blogs.lojcomm.com.br/diego.silva/notejam-vbs-asp-ado/html/signin.asp"/>
+	<meta http-equiv="refresh" content="<%=secs%>">
 
 	<!-- Mobile Specific Metas
   ================================================== -->

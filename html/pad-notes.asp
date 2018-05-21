@@ -19,7 +19,9 @@ Response.charset = "UTF-8"
 	
 	<%
 		Response.CacheControl = "no-store"
-
+		Dim TIMEOUT
+		Dim secs
+		TIMEOUT = 5 'minutos
 		If Session("user") = "" Then
 			Response.redirect("https://blogs.lojcomm.com.br/diego.silva/notejam-vbs-asp-ado/html/signin.asp")
 		End If
@@ -46,6 +48,8 @@ Response.charset = "UTF-8"
 		KEYTOCRYPT = "SOLO_UNA_CHIAVE_PER_CODIFICARE_IL_CORRIERI_ELECTRONICO"
 		
 		email = Session("user")
+		Session.Timeout = TIMEOUT
+		secs = CInt((TIMEOUT * 60) + 1)
 		order = Request.QueryString("order")
 				
 		If StrComp(TypeName(listaPads), "String") = 0 Then
@@ -87,7 +91,7 @@ Response.charset = "UTF-8"
 	
 	
 	
-		ref = "href=""/diego.silva/notejam-vbs-asp-ado/html/create-pad.asp?id=" & padId & "&name=" & pad & """"
+		ref = "href=""/diego.silva/notejam-vbs-asp-ado/html/create-pad.asp?id=" & padId & "&name=" & Server.urlEncode(pad) & """"
 	
 	%>
 	
@@ -100,6 +104,7 @@ Response.charset = "UTF-8"
 	<link rel="icon" href="/diego.silva/assets/img/radioactive.ico">
 	<script src="/diego.silva/notejam-vbs-asp-ado/javascript/moment.js"></script>
 	<script src="/diego.silva/notejam-vbs-asp-ado/javascript/moment-with-locales.js"></script>
+	<meta http-equiv="refresh" content="<%=secs%>">
 
 	<!-- Mobile Specific Metas
   ================================================== -->
@@ -162,9 +167,13 @@ Response.charset = "UTF-8"
 	
 		var tabela = document.getElementById("tabela");
 		
-		for(var i = 1; i < tabela.rows.length; i++) {
+		if(!(tabela === null)) {
+		
+			for(var i = 1; i < tabela.rows.length; i++) {
 			
-			tabela.rows[i].cells[2].innerHTML = moment(String(tabela.rows[i].cells[2].innerHTML), "MM/DD/YYYY hh:mm:ss a").calendar();
+				tabela.rows[i].cells[2].innerHTML = moment(String(tabela.rows[i].cells[2].innerHTML), "MM/DD/YYYY hh:mm:ss a").calendar();
+			
+			}
 			
 		}
 		

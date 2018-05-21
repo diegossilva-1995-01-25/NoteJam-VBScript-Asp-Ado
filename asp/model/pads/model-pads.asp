@@ -168,9 +168,9 @@
 		
 				'Vai dentro das tags da linha
 				Dim ref, altRef, delRef
-				ref = "href=""/diego.silva/notejam-vbs-asp-ado/html/pad-notes.asp?id=" & idPad & "&name=" & pad & """"
-				altRef = "href=""/diego.silva/notejam-vbs-asp-ado/html/create-pad.asp?id=" & idPad & "&name=" & pad & """"
-				delRef = "href=""/diego.silva/notejam-vbs-asp-ado/html/delete-pad.asp?id=" & idPad & "&name=" & pad & """"
+				ref = "href=""/diego.silva/notejam-vbs-asp-ado/html/pad-notes.asp?id=" & idPad & "&name=" & Server.urlEncode(pad) & """"
+				altRef = "href=""/diego.silva/notejam-vbs-asp-ado/html/create-pad.asp?id=" & idPad & "&name=" & Server.urlEncode(pad) & """"
+				delRef = "href=""/diego.silva/notejam-vbs-asp-ado/html/delete-pad.asp?id=" & idPad & "&name=" & Server.urlEncode(pad) & """"
 					
 				'Cada linha
 				padsArr(index) = "<li><a " & ref & ">" & pad & "</a>" & _

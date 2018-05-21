@@ -19,7 +19,9 @@ Response.charset = "UTF-8"
 	
 	<%
 		Response.CacheControl = "no-store"
-
+		Dim TIMEOUT
+		Dim secs
+		TIMEOUT = 5 'minutos
 		If Session("user") = "" Then
 			Response.redirect("https://blogs.lojcomm.com.br/diego.silva/notejam-vbs-asp-ado/html/signin.asp")
 		End If
@@ -49,7 +51,9 @@ Response.charset = "UTF-8"
 		KEYTOCRYPT = "SOLO_UNA_CHIAVE_PER_CODIFICARE_IL_CORRIERI_ELECTRONICO"
 		
 		email = Session("user")
-		pad = Request.QueryString("pad")
+		Session.Timeout = TIMEOUT
+		secs = CInt((TIMEOUT * 60) + 1)
+		pad = Server.htmlEncode(Request.QueryString("pad"))
 	
 		If StrComp(TypeName(listaPads), "String") = 0 Then
 			lista = listaPads
@@ -69,21 +73,20 @@ Response.charset = "UTF-8"
 		text = MarkDownIt.render(text)
 		data = dataMod
 	
-		paramet = "?id=" & cod & "&name=" & auxTitle
-		paramet2 = "?id=" & cod & "&title=" & auxTitle
+		paramet = "?id=" & cod & "&name=" & Server.urlEncode(auxTitle)
+		paramet2 = "?id=" & cod & "&title=" & Server.urlEncode(auxTitle)
 	%>
 	
 	<!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
-	<title>Notejam: <%=pad%></title>
+	<title>Notejam: <%=auxTitle%></title>
 	<meta name="description" content="Tela para visualizar o conteúdo de uma nota selecionada">
 	<meta name="author" content="Diego S. Silva">
 	<link rel="icon" href="/diego.silva/assets/img/radioactive.ico">
-	<meta http-equiv="refresh" content="300;url=https://blogs.lojcomm.com.br/diego.silva/notejam-vbs-asp-ado/html/signin.asp"/>
-	<meta http-equiv="refresh" content="300;url=https://blogs.lojcomm.com.br/diego.silva/notejam-vbs-asp-ado/html/signin.asp"/>
 	<script src="/diego.silva/notejam-vbs-asp-ado/javascript/moment.js"></script>
 	<script src="/diego.silva/notejam-vbs-asp-ado/javascript/moment-with-locales.js"></script>
+	<meta http-equiv="refresh" content="<%=secs%>">
 
 	<!-- Mobile Specific Metas
   ================================================== -->

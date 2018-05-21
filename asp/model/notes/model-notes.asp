@@ -8,9 +8,9 @@
 	'Inserir a nota no banco de dados
 	Sub criarNote
 	
-		nome = Server.htmlEncode(Request.QueryString("name"))
-		texto = Server.htmlEncode(Request.QueryString("text"))
-		pad = Server.htmlEncode(Request.QueryString("list"))
+		nome = Server.htmlEncode(Request.Form("name"))
+		texto = Server.htmlEncode(Request.Form("text"))
+		pad = Server.htmlEncode(Request.Form("list"))
 	
 		regUsr = resgatarUsuario
 		regUsr = Split(regUsr, ";")
@@ -61,7 +61,7 @@
 				
 		ElseIf Len(nome) > 25 Then
 	
-			Response.Cookies("mensagem") = "Pad name cannot be too long. The maximum allowed length is 25 characters."
+			Response.Cookies("mensagem") = "Pad name cannot be too long. The maximum allowed length is 100 characters."
 			Response.redirect("/diego.silva/notejam-vbs-asp-ado/html/create.asp")
 	
 		End If
@@ -71,10 +71,10 @@
 	
 	Sub alterarNota
 	
-		nome = Server.htmlEncode(Request.QueryString("name"))
-		texto = Server.htmlEncode(Request.QueryString("text"))
-		pad = Server.htmlEncode(Request.QueryString("list"))
-		msg = Server.htmlEncode(Request.QueryString("msg"))
+		nome = Server.htmlEncode(Request.Form("name"))
+		texto = Server.htmlEncode(Request.Form("text"))
+		pad = Server.htmlEncode(Request.Form("list"))
+		'msg = Server.htmlEncode(Request.QueryString("msg"))
 		
 		If Len(nome) > 0  AND Len(nome) <= 100 Then
 	
@@ -108,12 +108,12 @@
 		ElseIf Len(nome) <= 0 Then
 	
 			Response.Cookies("mensagem") = "Pad name cannot be empty or null."
-			Response.redirect("/diego.silva/notejam-vbs-asp-ado/html/edit.asp?id=" & id & "&name=" & name & "&text=" & texto)
+			Response.redirect("/diego.silva/notejam-vbs-asp-ado/html/edit.asp?id=" & id & "&name=" & name)
 				
 		ElseIf Len(nome) > 25 Then
 	
-			Response.Cookies("mensagem") = "Pad name cannot be too long. The maximum allowed length is 25 characters."
-			Response.redirect("/diego.silva/notejam-vbs-asp-ado/html/edit.asp?id=" & id & "&name=" & name & "&text=" & texto)
+			Response.Cookies("mensagem") = "Pad name cannot be too long. The maximum allowed length is 100 characters."
+			Response.redirect("/diego.silva/notejam-vbs-asp-ado/html/edit.asp?id=" & id & "&name=" & name)
 	
 		End If
 	
@@ -147,7 +147,7 @@
 		Dim nome
 		Dim pasta
 
-		nome = Server.htmlEncode(Request.QueryString("name"))
+		nome = Request.QueryString("name")
 		pasta = Server.htmlEncode(Request.QueryString("pad"))
 	
 		comandoSqlNotes = "SELECT notes.id, notes.name, notes.text, pads.id, notes.updated_at FROM notes " & _
@@ -184,7 +184,7 @@
 				
 		If InStr(urlAgora, "/diego.silva/notejam-vbs-asp-ado/html/pad-notes.asp") > 0 Then
 		
-			comandoSqlNotes = "SELECT notes.name, pads.name, notes.updated_at FROM notes " & _
+			comandoSqlNotes = "SELECT notes.name, pads.name, notes.updated_at, pads.id FROM notes " & _
 				"LEFT JOIN pads ON pads.id = notes.pad_id " & _
 				"INNER JOIN users ON users.id = notes.user_id WHERE users.email = ? AND pads.id = ?"
 			comandoSqlNotes = completarSql(comandoSqlNotes)
@@ -201,7 +201,7 @@
 		
 		Else
 		
-			comandoSqlNotes = "SELECT notes.name, pads.name, notes.updated_at FROM notes " & _
+			comandoSqlNotes = "SELECT notes.name, pads.name, notes.updated_at, pads.id FROM notes " & _
 				"LEFT JOIN pads ON pads.id = notes.pad_id " & _
 				"INNER JOIN users ON users.id = notes.user_id WHERE users.email = ?"
 			comandoSqlNotes = completarSql(comandoSqlNotes)
@@ -240,7 +240,7 @@
 			
 			Dim linhas(10)
 			Dim nome
-			Dim pad
+			Dim padName
 			Dim modif
 			Dim ref
 			Dim ref2
@@ -248,23 +248,24 @@
 			DO UNTIL rec.EOF Or cont > rec.PageSize '(Para exibir o número de notas daquela página)
 				
 				nome = rec.Fields.Item(0).Value
-				pad = rec.Fields.Item(1).Value
+				padName = rec.Fields.Item(1).Value
 				modif = rec.Fields.Item(2).Value
+				pad = rec.Fields.Item(3).Value
 		
 				'Para dentro da tag
-				ref = "href=""/diego.silva/notejam-vbs-asp-ado/html/view.asp?name=" & nome & "&pad=" & pad & """"
-				ref2 = "href=""/diego.silva/notejam-vbs-asp-ado/html/create-pad.asp?pad=" & pad & """"
+				ref = "href=""/diego.silva/notejam-vbs-asp-ado/html/view.asp?name=" & Server.urlEncode(nome) & "&pad=" & Server.urlEncode("" & padName) & """"
+				ref2 = "href=""/diego.silva/notejam-vbs-asp-ado/html/create-pad.asp?id=" & pad & "&name=" & Server.urlEncode("" & padName) & """"
 		
 				'Cada linha da tabela
-				linhas(cont - 1) = "<tr> <td> <a " & ref & ">" & nome & "</a> </td> <td> <a " & ref2 & ">" & pad & "</a> </td> " & _
+				linhas(cont - 1) = "<tr> <td> <a " & ref & ">" & nome & "</a> </td> <td> <a " & ref2 & ">" & padName & "</a> </td> " & _
 					"<td>" & modif & "</td> </tr> "
 		
 				'Se pad for null dizer que o nome é NO PAD
-				If isNull(pad) Then
-					pad = "NO PAD"
+				If isNull(padName) Then
+					padName = "NO PAD"
 					
 					'Cada linha da tabela
-					linhas(cont - 1) = "<tr> <td> <a " & ref & ">" & nome & "</a> </td> <td>" & pad & "</td> " & _
+					linhas(cont - 1) = "<tr> <td> <a " & ref & ">" & nome & "</a> </td> <td>" & padName & "</td> " & _
 						"<td>" & modif & "</td> </tr> "
 					
 				End If

@@ -20,7 +20,9 @@ Response.charset = "UTF-8"
 	
 	<%
 		Response.CacheControl = "no-store"
-
+		Dim TIMEOUT
+		Dim secs
+		TIMEOUT = 120 'minutos
 		If Session("user") = "" Then
 			Response.redirect("https://blogs.lojcomm.com.br/diego.silva/notejam-vbs-asp-ado/html/signin.asp")
 		End If
@@ -37,6 +39,8 @@ Response.charset = "UTF-8"
 		KEYTOCRYPT = "SOLO_UNA_CHIAVE_PER_CODIFICARE_IL_CORRIERI_ELECTRONICO"
 		
 		email = Session("user")
+		Session.Timeout = TIMEOUT
+		secs = CInt((TIMEOUT * 60) + 1)
 	
 		If StrComp(TypeName(listaPads), "String") = 0 Then
 			lista = listaPads
@@ -65,6 +69,7 @@ Response.charset = "UTF-8"
 	<meta name="description" content="Tela onde criamos notas">
 	<meta name="author" content="Diego S. Silva">
 	<link rel="icon" href="/diego.silva/assets/img/radioactive.ico">
+	<meta http-equiv="refresh" content="<%=secs%>">
 
 	<!-- Mobile Specific Metas
   ================================================== -->
@@ -103,11 +108,11 @@ Response.charset = "UTF-8"
     </div>
     <div class="thirteen columns content-area">
     <%=mensagem%>
-      <form class="note" action="/diego.silva/notejam-vbs-asp-ado/asp/controller/notes/add-a-note.asp">
+      <form class="note" action="/diego.silva/notejam-vbs-asp-ado/asp/controller/notes/add-a-note.asp" method="POST">
         <label for="name" required>Name</label>
         <input type="text" id="name" name="name" maxlength="100" required autofocus>
         <label for="text">Note</label>
-        <textarea id="text" name="text"></textarea>
+        <textarea id="text" name="text" ></textarea>
         <label for="list">Select Pad</label>
         <select id="list" name="list">
           <option value="0" selected>--------</option>

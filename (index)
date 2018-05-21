@@ -1,0 +1,3 @@
+<%
+	Server.transfer("https://blogs.lojcomm.com.br/diego.silva/notejam-vbs-asp-ado/html/signin.asp")
+%>
