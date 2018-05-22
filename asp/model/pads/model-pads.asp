@@ -6,7 +6,7 @@
 	
 		Dim comandoSqlPads
 
-		nome = Server.htmlEncode(Request.QueryString("name"))
+		nome = Server.htmlEncode(Trim(Request.QueryString("name")))
 		regUsr = resgatarUsuario
 		regUsr = Split(regUsr, ";")
 		id = CInt(regUsr(0))
@@ -38,7 +38,7 @@
 			Response.Cookies("mensagem") = "Pad name cannot be empty or null."
 			Response.redirect("/diego.silva/notejam-vbs-asp-ado/html/create-pad.asp")
 				
-		ElseIf Len(nome) > 25 Then
+		ElseIf Len(nome) > 100 Then
 	
 			Response.Cookies("mensagem") = "Pad name cannot be too long. The maximum allowed length is 100 characters."
 			Response.redirect("/diego.silva/notejam-vbs-asp-ado/html/create-pad.asp")
@@ -55,7 +55,7 @@
 		Dim comandoSqlPads
 		Dim pastaId
 		
-		nome = Server.htmlEncode(Request.QueryString("name"))
+		nome = Server.htmlEncode(Trim(Request.QueryString("name")))
 		pastaId = padId
 	
 		If Len(nome) > 0  AND Len(nome) <= 100 Then
@@ -82,12 +82,12 @@
 		ElseIf Len(nome) <= 0 Then
 	
 			Response.Cookies("mensagem") = "Pad name cannot be empty or null."
-			Response.redirect("/diego.silva/notejam-vbs-asp-ado/html/create-pad.asp?id=" & pastaId & "&name=" & nome)
+			Response.redirect("/diego.silva/notejam-vbs-asp-ado/html/create-pad.asp?id=" & pastaId & "&name=" & nAnterior)
 				
-		ElseIf Len(nome) > 25 Then
+		ElseIf Len(nome) > 100 Then
 	
 			Response.Cookies("mensagem") = "Pad name cannot be too long. The maximum allowed length is 100 characters."
-			Response.redirect("/diego.silva/notejam-vbs-asp-ado/html/create-pad.asp?id=" & pastaId & "&name=" & nome)
+			Response.redirect("/diego.silva/notejam-vbs-asp-ado/html/create-pad.asp?id=" & pastaId & "&name=" & nAnterior)
 				
 		End If
 	
@@ -231,6 +231,6 @@
 
 <script language="JavaScript" runat="server">
 	function encodeParaURL(umaString) {
-		return escape(umaString); //Será que cabe um laço aqui para converter caractere por caractere de   à %2F
+		return escape(umaString);
 	}
 </script>

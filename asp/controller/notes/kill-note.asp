@@ -10,8 +10,7 @@ divisao1 = Split(url, "?id=")
 divisao2 = Split(divisao1(1), "&title=")
 id = divisao2(0)
 KEYTOCRYPT = "SOLO_UNA_CHIAVE_PER_CODIFICARE_IL_CORRIERI_ELECTRONICO"
-email = Request.Cookies("email")
-email = py_decrypt(email, KEYTOCRYPT) 'Joga o valor do cookie na variável e só depois decripta
+email = Session("user")
 
 
 excluirNota

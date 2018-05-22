@@ -37,7 +37,7 @@
 		
 		conectar
 		
-		email = Request.QueryString("email")
+		email = Trim(Request.QueryString("email"))
 		
 		'Busca no banco, por um usuário
 		Dim sql

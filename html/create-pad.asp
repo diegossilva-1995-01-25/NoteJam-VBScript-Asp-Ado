@@ -60,7 +60,7 @@ Response.charset = "UTF-8"
 			acao = "/diego.silva/notejam-vbs-asp-ado/asp/controller/pads/alter-a-pad.asp"
 			pad = valorCampo
 			padId = Request.QueryString("id")
-			deletar = "<a href=""delete-pad.asp?id=" & padId & "&name=" & pad & """ class=""small-red"">Delete it</a>"
+			deletar = "<a href=""delete-pad.asp?id=" & padId & "&name=" & Server.urlEncode(pad) & """ class=""small-red"">Delete it</a>"
 		End If	
 		
 	

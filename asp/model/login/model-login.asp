@@ -31,7 +31,7 @@
 	'O novo usuário será criado
 	Sub criarUsuario
 		
-		email = Server.htmlEncode(Request.QueryString("email"))
+		email = Server.htmlEncode(Trim(Request.QueryString("email")))
 		senha = Server.htmlEncode(Request.QueryString("password"))
 		confirma = Server.htmlEncode(Request.QueryString("confirm-password"))
 		
@@ -91,7 +91,7 @@
 	
 	Sub validarUsuario
 				
-		email = Server.htmlEncode(Request.QueryString("email"))
+		email = Server.htmlEncode(Trim(Request.QueryString("email")))
 		senha = Server.htmlEncode(Request.QueryString("password"))
 		
 		conectar

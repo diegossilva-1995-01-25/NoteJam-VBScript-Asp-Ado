@@ -8,8 +8,8 @@
 	'Inserir a nota no banco de dados
 	Sub criarNote
 	
-		nome = Server.htmlEncode(Request.Form("name"))
-		texto = Server.htmlEncode(Request.Form("text"))
+		nome = Server.htmlEncode(Trim(Request.Form("name")))
+		texto = Server.htmlEncode(Trim(Request.Form("text")))
 		pad = Server.htmlEncode(Request.Form("list"))
 	
 		regUsr = resgatarUsuario
@@ -59,7 +59,7 @@
 			Response.Cookies("mensagem") = "Note name cannot be empty or null."
 			Response.redirect("/diego.silva/notejam-vbs-asp-ado/html/create.asp")
 				
-		ElseIf Len(nome) > 25 Then
+		ElseIf Len(nome) > 100 Then
 	
 			Response.Cookies("mensagem") = "Pad name cannot be too long. The maximum allowed length is 100 characters."
 			Response.redirect("/diego.silva/notejam-vbs-asp-ado/html/create.asp")
@@ -71,8 +71,8 @@
 	
 	Sub alterarNota
 	
-		nome = Server.htmlEncode(Request.Form("name"))
-		texto = Server.htmlEncode(Request.Form("text"))
+		nome = Server.htmlEncode(Trim(Request.Form("name")))
+		texto = Server.htmlEncode(Trim(Request.Form("text")))
 		pad = Server.htmlEncode(Request.Form("list"))
 		'msg = Server.htmlEncode(Request.QueryString("msg"))
 		
@@ -108,12 +108,12 @@
 		ElseIf Len(nome) <= 0 Then
 	
 			Response.Cookies("mensagem") = "Pad name cannot be empty or null."
-			Response.redirect("/diego.silva/notejam-vbs-asp-ado/html/edit.asp?id=" & id & "&name=" & name)
+			Response.redirect("/diego.silva/notejam-vbs-asp-ado/html/edit.asp?id=" & id & "&name=" & nAnterior)
 				
-		ElseIf Len(nome) > 25 Then
+		ElseIf Len(nome) > 100 Then
 	
 			Response.Cookies("mensagem") = "Pad name cannot be too long. The maximum allowed length is 100 characters."
-			Response.redirect("/diego.silva/notejam-vbs-asp-ado/html/edit.asp?id=" & id & "&name=" & name)
+			Response.redirect("/diego.silva/notejam-vbs-asp-ado/html/edit.asp?id=" & id & "&name=" & nAnterior)
 	
 		End If
 	

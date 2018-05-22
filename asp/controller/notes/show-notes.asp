@@ -27,8 +27,7 @@ queries = Request.ServerVariables("QUERY_STRING")
 urlAgora = Request.ServerVariables("URL")
 
 KEYTOCRYPT = "SOLO_UNA_CHIAVE_PER_CODIFICARE_IL_CORRIERI_ELECTRONICO"
-email = Request.Cookies("email")
-email = py_decrypt(email, KEYTOCRYPT) 'Joga o valor do cookie na variável e só depois decripta
+email = Session("user")
 order = Server.htmlEncode(Request.QueryString("order"))
 padParaUrl = ""
 pad = ""

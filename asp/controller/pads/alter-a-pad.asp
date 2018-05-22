@@ -9,11 +9,11 @@ Dim padId
 
 urlOrigem = Request.ServerVariables("HTTP_REFERER")
 urlOrigem = Split(urlOrigem, "?id=")
-segundoSplit = Split(urlOrigem(1), "&")
+segundoSplit = Split(urlOrigem(1), "&name=")
 padId = segundoSplit(0)
-KEYTOCRYPT = "SOLO_UNA_CHIAVE_PER_CODIFICARE_IL_CORRIERI_ELECTRONICO"
-email = Request.Cookies("email")
-email = py_decrypt(email, KEYTOCRYPT) 'Joga o valor do cookie na variável e só depois decripta
+Dim nAnterior
+nAnterior = segundoSplit(1)
+email = Session("user")
 
 alterarPad
 

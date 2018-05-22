@@ -13,8 +13,7 @@ Dim urlOrigem
 
 urlOrigem = Request.ServerVariables("HTTP_REFERER")
 KEYTOCRYPT = "SOLO_UNA_CHIAVE_PER_CODIFICARE_IL_CORRIERI_ELECTRONICO"
-email = Request.Cookies("email")
-email = py_decrypt(email, KEYTOCRYPT) 'Joga o valor do cookie na variável e só depois decripta
+email = Session("user")
 current = Request.QueryString("current-password")
 pwd = Request.QueryString("new-password")
 conf = Request.QueryString("confirm-new-password")

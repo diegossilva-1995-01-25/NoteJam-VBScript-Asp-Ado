@@ -54,7 +54,7 @@ Response.charset = "UTF-8"
 	
 		anterior = Request.ServerVariables("HTTP_REFERER")
 	
-		parametros = "?id=" & id & "&title=" & titulo
+		parametros = "?id=" & id & "&title=" & Server.urlEncode(titulo)
 	
 	%>
 	

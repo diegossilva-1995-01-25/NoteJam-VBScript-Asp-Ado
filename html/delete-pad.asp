@@ -53,9 +53,9 @@ Response.charset = "UTF-8"
 			lista = join(listaPads)
 		End If
 	
-		anterior = "/diego.silva/notejam-vbs-asp-ado/html/pad-notes.asp?id=" & id & "&pad=" & name
+		anterior = "/diego.silva/notejam-vbs-asp-ado/html/pad-notes.asp?id=" & id & "&name=" & Server.urlEncode(name)
 	
-		parametros = "?id=" & id & "&name=" & name
+		parametros = "?id=" & id & "&name=" & Server.urlEncode(name)
 	
 	%>
 
